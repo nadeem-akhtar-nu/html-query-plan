@@ -15,6 +15,7 @@
 		request.open('GET', file, false);
 		request.send();
 	    	var xmlDoc=request.responseXML;
+	    	alert(xmlDoc);
 	    	QP.showPlan(document.getElementById("container"), xmlDoc);		
 			       
     </script>
