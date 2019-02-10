@@ -6,10 +6,13 @@
     <link rel="stylesheet" type="text/css" href="css/qp.css" />
     <script src="dist/qp.js"></script>
 </head>
-<body>    
+<body>
+    <p>
+        <input type="file" id="upload">
+    </p>
     <div id="container"></div>
     <script>
-	document.getElementById('upload').addEventListener('change', function (e) {
+        document.getElementById('upload').addEventListener('change', function (e) {
             var file = e.target.files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
