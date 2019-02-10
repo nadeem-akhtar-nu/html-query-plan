@@ -17,7 +17,7 @@
 		request.send(null);
 		request.onreadystatechange = function () {
 			alert("readyState: "+request.readyState+ " status: "+request.status);
-			if (request.readyState === 4 && request.status === 200) {
+			if (request.readyState === 4 && request.status === 0) {
 				var type = request.getResponseHeader('Content-Type');
 				alert(type);
 				if (type.indexOf("text") !== 1) {
