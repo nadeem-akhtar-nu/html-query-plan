@@ -20,8 +20,8 @@
 		  QP.showPlan(document.getElementById("container"), content);
 		};
 		
-		xhr.onerror = function() {
-		  alert("Download failure.");
+		xhr.onerror = function(e) {
+		  alert("Download failure."+e);
 		};
     
 		xhr.send();		       
