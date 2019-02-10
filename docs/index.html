@@ -9,35 +9,17 @@
 <body>    
     <div id="container"></div>
     <script>
-		const urlParams = new URLSearchParams(window.location.search);
-		var file = urlParams.get('file');
-	    	alert(file);
-	    	alert(getText(file));
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			alert(e.target.result);
-			QP.showPlan(document.getElementById("container"), e.target.result);
-		}
-		reader.onerror = function (e) {
-			alert('error reading file');
-		}
-		reader.readAsText(file, "UTF-8");
-	    function getText(file){
-		    // read text from URL location
-		    var request = new XMLHttpRequest();
-		    alert('getText');
-		    request.open('GET',file, true);
-		    request.send(null);
-		    request.onreadystatechange = function () {
-			if (request.readyState === 4 && request.status === 200) {
-			    var type = request.getResponseHeader('Content-Type');
-				alert(type);
-			    if (type.indexOf("text") !== 1) {				    
-				return request.responseText;
-			    }
-			}
-		    }
-		}
+	document.getElementById('upload').addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                QP.showPlan(document.getElementById("container"), e.target.result);
+            }
+            reader.onerror = function (e) {
+                alert('error reading file');
+            }
+            reader.readAsText(file, "UTF-8");
+        });
     </script>
 </body>
 </html>
