@@ -11,20 +11,26 @@
     <script>
 		const urlParams = new URLSearchParams(window.location.search);
 		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	
-	    	alert(file);
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', file);
-		xhr.onload = function() {
-		  var content = xhr.responseText;
-		  alert('Download Success')
-		  QP.showPlan(document.getElementById("container"), content);
-		};
+	    	alert(file);	
+		var request = new XMLHttpRequest();
+		request.open('GET', file, true);
+		request.send(null);
+		request.onreadystatechange = function () {
+			alert(request.readyState);
+			if (request.readyState === 4 && request.status === 200) {
+				var type = request.getResponseHeader('Content-Type');
+				alert(type);
+				if (type.indexOf("text") !== 1) {
+					return request.responseText;
+				}
+			}
+		}
 		
-		xhr.onerror = function(e) {
+		request.onerror = function(e) {
 		  alert("Download failure."+e);
 		};
     
-		xhr.send();		       
+			       
     </script>
 </body>
 </html>
