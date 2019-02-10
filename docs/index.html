@@ -2,22 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Show html query plan</title>
+    <title>Show Query Plan</title>
     <link rel="stylesheet" type="text/css" href="css/qp.css" />
     <script src="dist/qp.js?id=0"></script>
 </head>
 <body>    
+	<h1><span id="title">Show Query Plan</span></h1>
     <div id="container"></div>
     <script>
 		const urlParams = new URLSearchParams(window.location.search);
+		var title = urlParams.get('title');
+		document.getElementById("title").innerText(title);
 		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	    		
 		var request = new XMLHttpRequest();
 		request.open('GET', file, false);
 		request.send();
-	    	/*alert(request.responseText);
-	    	var xmlObject = request.responseXML;	    	
-	    	var xml = new XMLSerializer().serializeToString(xmlObject.documentElement);	*/    	
-	    	QP.showPlan(document.getElementById("container"), request.responseText);		
+		/*alert(request.responseText);
+		var xmlObject = request.responseXML;	    	
+		var xml = new XMLSerializer().serializeToString(xmlObject.documentElement);	*/    	
+		QP.showPlan(document.getElementById("container"), request.responseText);		
 			       
     </script>
 </body>
