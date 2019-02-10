@@ -10,8 +10,15 @@
     <div id="container"></div>
     <script>
 		const urlParams = new URLSearchParams(window.location.search);
-		const file = urlParams.get('file');
-		QP.showPlan(document.getElementById("container"), file);        
+		var file = urlParams.get('file');		
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			QP.showPlan(document.getElementById("container"), e.target.result);
+		}
+		reader.onerror = function (e) {
+			alert('error reading file');
+		}
+		reader.readAsText(file, "UTF-8");	     
     </script>
 </body>
 </html>
