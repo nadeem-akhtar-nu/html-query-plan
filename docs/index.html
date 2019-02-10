@@ -10,28 +10,12 @@
     <div id="container"></div>
     <script>
 		const urlParams = new URLSearchParams(window.location.search);
-		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	
-	    	alert(file);	
+		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	    		
 		var request = new XMLHttpRequest();
 		request.open('GET', file, false);
 		request.send();
 	    	var xmlDoc=request.responseXML;
-	    	alert(xmlDoc);
-		/*request.onreadystatechange = function () {
-			alert("readyState: "+request.readyState+ " status: "+request.status);
-			if (request.readyState === 4 && request.status === 0) {
-				var type = request.getResponseHeader('Content-Type');
-				alert(type);
-				if (type.indexOf("text") !== 1) {
-					return request.responseText;
-				}
-			}
-		}*/
-		/*
-		request.onerror = function(e) {
-		  alert("Download failure."+e);
-		};
-    		*/
+	    	QP.showPlan(document.getElementById("container"), xmlDoc);		
 			       
     </script>
 </body>
