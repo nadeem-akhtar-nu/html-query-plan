@@ -10,9 +10,11 @@
     <div id="container"></div>
     <script>
 		const urlParams = new URLSearchParams(window.location.search);
-		var file = urlParams.get('file');		
+		var file = urlParams.get('file');
+	    	alert(file);
 		var reader = new FileReader();
 		reader.onload = function (e) {
+			alert(e.target.result);
 			QP.showPlan(document.getElementById("container"), e.target.result);
 		}
 		reader.onerror = function (e) {
