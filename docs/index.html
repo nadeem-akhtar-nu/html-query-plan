@@ -16,7 +16,7 @@
 		request.open('GET', file, true);
 		request.send(null);
 		request.onreadystatechange = function () {
-			alert(request.readyState);
+			alert("readyState: "+request.readyState+ " status: "+request.status);
 			if (request.readyState === 4 && request.status === 200) {
 				var type = request.getResponseHeader('Content-Type');
 				alert(type);
