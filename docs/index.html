@@ -14,11 +14,10 @@
 		var request = new XMLHttpRequest();
 		request.open('GET', file, false);
 		request.send();
-	    	var xmlObject = request.responseXML;
-	    	alert(xmlObject);
-	    	var xml = new XMLSerializer().serializeToString(xmlObject.documentElement);
-	    	alert(xml);
-	    	QP.showPlan(document.getElementById("container"), xml);		
+	    	alert(request.responseText);
+	    	/*var xmlObject = request.responseXML;	    	
+	    	var xml = new XMLSerializer().serializeToString(xmlObject.documentElement);	    	
+	    	QP.showPlan(document.getElementById("container"), xml);	*/	
 			       
     </script>
 </body>
