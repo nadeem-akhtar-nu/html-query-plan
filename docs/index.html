@@ -2,30 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Example for html-query-plan</title>
+    <title>Show html query plan</title>
     <link rel="stylesheet" type="text/css" href="css/qp.css" />
     <script src="dist/qp.js"></script>
 </head>
-<body>
-    <p>
-        <input type="file" id="upload">
-    </p>
+<body>    
     <div id="container"></div>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
+		const urlParams = new URLSearchParams(window.location.search);
 		const file = urlParams.get('file');
-		alert(file);
-        document.getElementById('upload').addEventListener('change', function (e) {
-            var file = e.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                QP.showPlan(document.getElementById("container"), e.target.result);
-            }
-            reader.onerror = function (e) {
-                alert('error reading file');
-            }
-            reader.readAsText(file, "UTF-8");
-        });
+		QP.showPlan(document.getElementById("container"), file);        
     </script>
 </body>
 </html>
