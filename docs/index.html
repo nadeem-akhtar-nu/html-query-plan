@@ -12,14 +12,19 @@
 		const urlParams = new URLSearchParams(window.location.search);
 		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	
 	    	alert(file);
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			QP.showPlan(document.getElementById("container"), e.target.result);
-		}
-		reader.onerror = function (e) {
-			alert('error reading file');
-		}
-		reader.readAsText(file, "UTF-8");		       
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', file);
+		xhr.onload = function() {
+		  var content = xhr.responseText;
+		  alert('Download Success')
+		  QP.showPlan(document.getElementById("container"), content);
+		};
+		
+		xhr.onerror = function() {
+		  alert("Download failure.");
+		};
+    
+		xhr.send();		       
     </script>
 </body>
 </html>
