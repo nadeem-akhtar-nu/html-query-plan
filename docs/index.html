@@ -25,6 +25,7 @@
 	    function getText(file){
 		    // read text from URL location
 		    var request = new XMLHttpRequest();
+		    alert('getText');
 		    request.open('GET',file, true);
 		    request.send(null);
 		    request.onreadystatechange = function () {
