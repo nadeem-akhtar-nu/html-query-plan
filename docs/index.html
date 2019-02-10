@@ -12,6 +12,9 @@
     </p>
     <div id="container"></div>
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+		const file = urlParams.get('file');
+		alert(file);
         document.getElementById('upload').addEventListener('change', function (e) {
             var file = e.target.files[0];
             var reader = new FileReader();
