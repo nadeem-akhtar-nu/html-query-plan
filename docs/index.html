@@ -12,7 +12,7 @@
     <script>
 		const urlParams = new URLSearchParams(window.location.search);
 		var title = urlParams.get('title');
-		document.getElementById("title").innerText(title);
+		document.getElementById("title").innerText = title;
 		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	    		
 		var request = new XMLHttpRequest();
 		request.open('GET', file, false);
