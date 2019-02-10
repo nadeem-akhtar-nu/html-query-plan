@@ -13,9 +13,11 @@
 		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	
 	    	alert(file);	
 		var request = new XMLHttpRequest();
-		request.open('GET', file, true);
-		request.send(null);
-		request.onreadystatechange = function () {
+		request.open('GET', file, false);
+		request.send();
+	    	var xmlDoc=request.responseXML;
+	    	alert(xmlDoc);
+		/*request.onreadystatechange = function () {
 			alert("readyState: "+request.readyState+ " status: "+request.status);
 			if (request.readyState === 4 && request.status === 0) {
 				var type = request.getResponseHeader('Content-Type');
@@ -24,7 +26,7 @@
 					return request.responseText;
 				}
 			}
-		}
+		}*/
 		/*
 		request.onerror = function(e) {
 		  alert("Download failure."+e);
