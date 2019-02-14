@@ -2,26 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Show Query Plan</title>
-    <link rel="stylesheet" type="text/css" href="css/qp.css" />
-    <script src="dist/qp.js?id=0"></script>
+    <title>Show Query Plan</title>	
+	
+    <link rel="stylesheet" type="text/css" href="css/qp.css" />	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>	
+    <script src="dist/qp.js"></script>
+	
+	<style>
+		h1 {			
+			font-family: Arial,Helvetica,Geneva,sans-serif;
+			letter-spacing: -1px;
+			color: #004080; 
+			border-bottom:2px solid #004080;
+		}
+		h3 {			
+			font-family: Verdana,Arial,Helvetica,Geneva,sans-serif;
+			font-style: underline;			
+			color: #003070; 			
+		}		
+		pre {
+			font-family: "Courier 10 Pitch", Courier, monospace;
+			font-size: 90%;
+			line-height: 140%;
+			white-space: pre;
+			white-space: pre-wrap;
+			white-space: -moz-pre-wrap;
+			white-space: -o-pre-wrap;
+		}       
+
+		code {
+			font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+			font-size: 90%;
+			line-height: 140%;
+			white-space: pre;
+			white-space: pre-wrap;
+			white-space: -moz-pre-wrap;
+			white-space: -o-pre-wrap;
+			background: #faf8f8;
+		}
+
+		#query code, #stats code {
+			display: block;
+			padding: 0.5em 1em;
+			border: 1px solid #bebab0;
+		}
+	</style> 
+	<script>		
+		function loadplan() {
+			const urlParams = new URLSearchParams(window.location.search);
+			var title = urlParams.get('title');
+			var planid = urlParams.get('plan');
+			var statsid = urlParams.get('stats');
+			$("#title").text(title);
+			var planfile = 'https://drive.google.com/uc?export=download&id='+planid;	 
+			var statsfile = 'https://drive.google.com/uc?export=download&id='+statsid;				
+			var request = new XMLHttpRequest();
+			request.open('GET', planfile, false);
+			request.send();			
+			//var xmlObject = request.responseXML;	    	
+			//var planxml = new XMLSerializer().serializeToString(xmlObject.documentElement);  
+			var planxml = request.responseText;
+			
+			request.open('GET', statsfile, false);
+			request.send();			
+			var statstext = request.responseText;
+			$('#stats').append('<pre><code>'+statstext+'</code></pre>');
+			
+			var xmlDoc = $.parseXML( planxml );
+			var xml = $( xmlDoc );
+			xml.find('StmtSimple').each(function(index){
+				var query = $(this).attr('StatementText');				
+				$('#query').append('<pre><code>'+query+'</code></pre>');
+			});
+			QP.showPlan(document.getElementById("plan"), planxml);		
+		}
+		$( function() {			
+			loadplan();
+		});
+  </script>
 </head>
-<body>    
-	<h1 style="font-family: Arial; color: #004080; border-bottom:2px solid black"><span id="title">Show Query Plan</span></h1>	
-    <div id="container"></div>
-    <script>
-		const urlParams = new URLSearchParams(window.location.search);
-		var title = urlParams.get('title');
-		document.getElementById("title").innerText = title;
-		var file = 'https://drive.google.com/uc?export=download&id='+urlParams.get('file');	    		
-		var request = new XMLHttpRequest();
-		request.open('GET', file, false);
-		request.send();
-		/*alert(request.responseText);
-		var xmlObject = request.responseXML;	    	
-		var xml = new XMLSerializer().serializeToString(xmlObject.documentElement);	*/    	
-		QP.showPlan(document.getElementById("container"), request.responseText);		
-			       
-    </script>
+<body> 
+	<h1><span id="title">Show Query Plan</span></h1>
+	<div>
+		<div>  
+			<h3>Query</h3>
+			<div id="query">
+				
+			</div>
+		</div>
+		<div>  
+			<h3>Plan</h3>
+			<div id="plan"></div>
+		</div>
+		<div>  
+			<h3>Statistics</h3>
+			<div id="stats">
+			</div>
+		</div> 
+	</div>	
 </body>
 </html>
