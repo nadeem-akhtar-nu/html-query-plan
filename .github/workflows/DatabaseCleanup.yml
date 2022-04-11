@@ -20,7 +20,7 @@ jobs:
           CDM_PRODUCT: "Agemni"
           CDM_ENVIRONMENT: "Dev"
         run: |
-          DB_NAME="${BRANCH_NAME//-/_}"
+          DB_NAME="${BRANCH_NAME//-\//_}"
           echo $DB_NAME
           # echo "${CDM_URL}?cdmUsername=${CDM_USER}&cdmPassword=${CDM_TOKEN}&engine=${CDM_ENGINE}&cdmConnection=${CDM_CONNECTION}&cdmProduct=${CDM_PRODUCT}&cdmEnvironment=${CDM_ENVIRONMENT}&startsWith=${DB_PREFIX}&contains=${DB_IDENTIFIER}"
           # echo "${GITHUB_BRANCH}"
