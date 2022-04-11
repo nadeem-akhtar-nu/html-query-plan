@@ -1,7 +1,7 @@
 name: Databases Cleanup
 on:
-#  delete 
-  workflow_dispatch
+  delete 
+#  workflow_dispatch
   
 jobs:
   delete_databases:
