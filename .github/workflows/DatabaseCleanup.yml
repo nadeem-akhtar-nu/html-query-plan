@@ -1,7 +1,7 @@
 name: Databases Cleanup
 on:
-#  delete 
-  workflow_dispatch
+  delete 
+#  workflow_dispatch
   
 jobs:
   delete_databases:
@@ -10,8 +10,7 @@ jobs:
     steps:
       - env:
           DB_PREFIX: "dagm_"
-          DB_IDENTIFIER: ${{ github.event.ref }}
-          BRANCH_NAME: "faster/AGEMNI-00-00 7 test"
+          BRANCH_NAME: ${{ github.event.ref }}
           CDM_URL: "http://faster-github-cdm-01-d71037c7dd406d80.elb.us-east-1.amazonaws.com/api/github/delete-databases"
           CDM_USER: "service.eng.faster"
           CDM_TOKEN: "nWp6kiHayp266L6jspnsRmyGk8bp2BAS6PMSaLIFf%2FBKFV%2Fhgrglb%2BL%2FikfnMogIWlqwEap7Hi366DyRWeTYsQE4qKv%2FEhBmFUWsguSX4iyfMbg0oZDRt8fLnHFWeHluR0FTq2LBE6ptHV3K7hDOzvpsynzyBOi1la1e9Q%2FDDrM%3D"
@@ -20,10 +19,8 @@ jobs:
           CDM_PRODUCT: "Agemni"
           CDM_ENVIRONMENT: "Dev"
         run: |
-          DB_NAME="${BRANCH_NAME//-/_}"
-          DB_NAME="${DB_NAME// /_}"
-          DB_NAME="${DB_NAME//\//_}"
-          echo $DB_NAME
-          # echo "${CDM_URL}?cdmUsername=${CDM_USER}&cdmPassword=${CDM_TOKEN}&engine=${CDM_ENGINE}&cdmConnection=${CDM_CONNECTION}&cdmProduct=${CDM_PRODUCT}&cdmEnvironment=${CDM_ENVIRONMENT}&startsWith=${DB_PREFIX}&contains=${DB_IDENTIFIER}"
-          # echo "${GITHUB_BRANCH}"
-          # curl -H "Content-Type: application/json" -X POST "http://faster-github-cdm-01-d71037c7dd406d80.elb.us-east-1.amazonaws.com/api/github/delete-databases?engine=MSSQL&cdmUsername=service.eng.faster&cdmPassword=&cdmConnection=sql01qa&cdmProduct=Agemni&cdmEnvironment=Dev&startsWith=dagm&contains=AGEMNI_00007"
+          DB_IDENTIFIER="${BRANCH_NAME//-/_}"
+          DB_IDENTIFIER="${DB_IDENTIFIER// /_}"
+          DB_IDENTIFIER="${DB_IDENTIFIER//\//_}"
+          
+          curl -H "Content-Type: application/json" -X POST "${CDM_URL}?cdmUsername=${CDM_USER}&cdmPassword=${CDM_TOKEN}&engine=${CDM_ENGINE}&cdmConnection=${CDM_CONNECTION}&cdmProduct=${CDM_PRODUCT}&cdmEnvironment=${CDM_ENVIRONMENT}&startsWith=${DB_PREFIX}&contains=${DB_IDENTIFIER}"
