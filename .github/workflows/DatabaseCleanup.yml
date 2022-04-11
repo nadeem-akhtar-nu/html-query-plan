@@ -20,8 +20,8 @@ jobs:
           CDM_ENVIRONMENT: "Dev"
         run: |
           BRANCH_NAME: "faster/AGEMNI-00007 test"
-          BRANCH_NAME="${BRANCH_NAME//-/_}"
-          echo $BRANCH_NAME
+          BRANCH_NAME: "${BRANCH_NAME//-/_}"
+          echo "${BRANCH_NAME}"
           # echo "${CDM_URL}?cdmUsername=${CDM_USER}&cdmPassword=${CDM_TOKEN}&engine=${CDM_ENGINE}&cdmConnection=${CDM_CONNECTION}&cdmProduct=${CDM_PRODUCT}&cdmEnvironment=${CDM_ENVIRONMENT}&startsWith=${DB_PREFIX}&contains=${DB_IDENTIFIER}"
           # echo "${GITHUB_BRANCH}"
           # curl -H "Content-Type: application/json" -X POST "http://faster-github-cdm-01-d71037c7dd406d80.elb.us-east-1.amazonaws.com/api/github/delete-databases?engine=MSSQL&cdmUsername=service.eng.faster&cdmPassword=&cdmConnection=sql01qa&cdmProduct=Agemni&cdmEnvironment=Dev&startsWith=dagm&contains=AGEMNI_00007"
